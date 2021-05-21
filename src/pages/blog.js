@@ -3,17 +3,24 @@ import { useStaticQuery, graphql, Link } from 'gatsby'
 import styled from 'styled-components'
 import Img from 'gatsby-image'
 
-import Layout from '../layouts'
-import BG from '../components/bg'
+import NewLayout from "../layouts/new";
+// import Layout from '../layouts'
+// import BG from '../components/bg'
 import SEO from '../components/seo'
 
 const StyledBlog = styled.div`
   padding: 0 2rem;
   padding-bottom: 4rem;
-  margin-bottom: 4rem;
+  /* margin-bottom: 4rem; */
   padding-top: 2rem;
 
   border-bottom: 1px solid ${({ theme }) => theme.colors.grey2};
+  font-family: 'Titillium Web', sans-serif;
+
+  h2 {
+    font-family: 'Titillium Web', sans-serif;
+    margin: 0;
+  }
 
   @media (max-width: 960px) {
     flex-direction: column;
@@ -24,25 +31,25 @@ const StyledBlog = styled.div`
 
 const PostsWrapper = styled.div`
   position: relative;
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
   justify-content: space-between;
-  max-width: 960px;
+  column-gap: 3rem;
+  max-width: 68rem;
   margin: 0 auto;
+  padding: 1.3125rem 1.25rem;
+
+  @media (max-width: 960px) {
+    grid-template-columns: 1fr;
+  }
 `
 
 const PageTitleWrapper = styled.section`
   display: flex;
   flex-direction: column;
-  /* align-items: center; */
-  /* justify-content: center; */
-  max-width: 960px;
+  max-width: 68rem;
   margin: 0 auto;
-  width: 100%;
-  padding: 4rem;
-  @media (max-width: 960px) {
-    padding: 0;
-  }
+  padding: 0rem 1.25rem;
 `
 
 export const Posts = styled.div`
@@ -102,8 +109,15 @@ export const PostTitleWrapper = styled.div`
   /* margin-top: 24px; */
   padding: 2rem;
   h2 {
-    font-size: 36px;
+    font-size: 1.1rem;
+    font-weight: bold;
   }
+  p {
+    font-size: 0.8rem
+  }
+
+  color: ${({ theme }) => theme.colors.white};
+
   /* > * + * {
     margin-left: 24px;
   } */
@@ -117,7 +131,7 @@ export const PostTitleWrapper = styled.div`
 export const PostMetaData = styled.p`
   font-size: 1rem;
   margin-bottom: 0.5rem;
-  color: ${({ theme }) => theme.colors.grey6};
+  color: ${({ theme }) => theme.colors.white};
   width: 100%;
   justify-self: flex-end;
   p {
@@ -128,13 +142,10 @@ export const PostMetaData = styled.p`
 export const StyledImage = styled(Img)`
   width: 100%;
   border-radius: 12px;
-  height: 420px;
   box-shadow: ${({ theme }) => theme.shadows.huge};
   border-radius: 20px;
   overflow: hidden;
-  @media (max-width: 960px) {
-    height: 256px;
-  }
+  box-shadow: none;  
 `
 
 export const NewPill = styled.p`
@@ -200,26 +211,19 @@ const Blog = props => {
   `)
 
   return (
-    <Layout path={props.location.pathname}>
-      <BG />
-      <SEO title="Uniswap Blog" path={props.location.pathname} />
+    <NewLayout>
+      {/* <BG /> */}
+      <SEO title="Opium Blog" path={props.location.pathname} />
 
       <StyledBlog>
         <PageTitleWrapper>
-          <h2 style={{ fontSize: '56px' }}>Blog</h2>
-          <p>
-            News, stories, and announcements from Uniswap.{' '}
-            <a style={{ paddingBottom: '1rem' }} href="/rss.xml" target="_blank">
-              Subscribe
-            </a>
-          </p>
+          <h2 style={{ fontSize: '2.5rem', fontWeight: 500 }}>Blog</h2>
         </PageTitleWrapper>
         <PostsWrapper>
           {data.allMdx.edges.map(({ node }, index) => {
             return (
               <Posts wide={index} key={node.id}>
                 <PostLinkWrapper wide={index} to={node.fields.slug}>
-                  {index === 0 && <NewPill>New</NewPill>}
                   <PostTitleWrapper>
                     <h2 style={{ marginTop: '0px' }}>{node.frontmatter.title}</h2>
 
@@ -236,7 +240,7 @@ const Blog = props => {
           })}
         </PostsWrapper>
       </StyledBlog>
-    </Layout>
+    </NewLayout>
   )
 }
 

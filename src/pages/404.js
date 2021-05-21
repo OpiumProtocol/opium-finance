@@ -1,18 +1,16 @@
 import React from 'react'
 
-import Layout from '../layouts'
+import NewLayout from '../layouts/new'
 import SEO from '../components/seo'
-import BG from '../components/bg'
 
 const NotFoundPage = props => (
-  <Layout path={props.location.pathname}>
-    <BG />
+  <NewLayout path={props.location.pathname}>
     <SEO title="404: Not found" path={props.location.pathname} />
-    <div style={{maxWidth: 1440, padding: 32,margin: 'auto'}}>
-      <h1>Missing Unicorn 🦄</h1>
+    <div style={{maxWidth: 1440, padding: '2rem', margin: 'auto'}}>
+      <h1>Not found</h1>
       <p>You just found a page that doesn&#39;t exist.</p>
     </div>
-  </Layout>
+  </NewLayout>
 )
 
 export default NotFoundPage

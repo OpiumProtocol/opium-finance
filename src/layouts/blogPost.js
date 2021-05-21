@@ -1,11 +1,12 @@
 import React from 'react'
-import Layout from '.'
+// import Layout from '.'
+import NewLayout from "../layouts/new";
 import styled from 'styled-components'
 import Moment from 'react-moment'
 import { graphql, useStaticQuery, Link } from 'gatsby'
 
 import SEO from '../components/seo'
-import BG from '../components/bg'
+// import BG from '../components/bg'
 import Img from 'gatsby-image'
 
 import TableofContents from '../components/toc'
@@ -13,15 +14,25 @@ import TableofContents from '../components/toc'
 import '../styles/prism-github.css'
 
 const StyledBlog = styled.div`
-  min-width: 960px;
-  max-width: 960px;
+  min-width: 68rem;
+  max-width: 68rem;
   display: flex;
   flex-direction: column;
   position: relative;
   align-items: center;
   /* padding: 2rem 5rem; */
   margin: 0 auto;
-  margin-bottom: 2rem;
+  /* margin-bottom: 2rem; */
+
+  strong {
+    color: ${({ theme }) => theme.colors.white};
+  }
+  
+  font-family: 'Titillium Web', sans-serif;
+  h1, h2 {
+    font-family: 'Titillium Web', sans-serif;
+  }
+
   @media (max-width: 960px) {
     padding: 1rem;
     padding-top: 0px;
@@ -40,6 +51,7 @@ const StyledBlogPostWrapper = styled.div`
   padding-bottom: 4rem;
   margin-bottom: 4rem;
   padding-top: 2rem;
+  width: 100%;
 
   @media (max-width: 960px) {
     flex-direction: column;
@@ -93,7 +105,7 @@ const StyledMDX = styled.div`
 
 const BlogLink = styled(Link)`
   font-size: 16px;
-  color: ${({ theme }) => theme.colors.grey6};
+  color: ${({ theme }) => theme.colors.white};
 `
 
 const PostHeader = styled.div`
@@ -119,7 +131,7 @@ const PostMetaData = styled.div`
   text-align: center; */
   font-size: 1rem;
   margin-bottom: 1rem;
-  opacity: 0.6;
+  /* opacity: 0.6; */
   @media (max-width: 960px) {
     flex-direction: column;
   }
@@ -157,7 +169,7 @@ const PostTitle = styled.h1`
 
 const PostDate = styled(Moment)`
   margin: 0;
-  color: ${({ theme }) => theme.colors.grey6};
+  color: ${({ theme }) => theme.colors.white};
 `
 
 const StyledDocsNavWrapper = styled.ul`
@@ -178,7 +190,7 @@ const StyledDocsNavWrapper = styled.ul`
 `
 const StyledDocsNav = styled.li`
   a {
-    color: ${({ theme }) => theme.textColor};
+    color: ${({ theme }) => theme.colors.white};
   }
   @media (max-width: 960px) {
     width: 100%;
@@ -195,7 +207,7 @@ const StyledLink = styled(Link)`
   flex-direction: column;
   small {
     font-size: 0.75rem;
-    opacity: 0.6;
+    /* opacity: 0.6; */
   }
   @media (max-width: 960px) {
     width: 100%;
@@ -206,18 +218,31 @@ const WrappedHeroImage = styled(Img)`
   width: 100vw;
   height: 550px;
   max-width: 1440px;
-  @media (max-width: 960px) {
+  @media (max-width: 960px) and (min-width: 601px) {
     width: 100vw;
     height: 360px;
+  }
+
+  @media (max-width: 600px) {
+    width: 100vw;
+    height: 260px;
+    object-fit: contain !important;
   }
 
   img {
     width: 100vw;
     height: 550px;
     max-width: 1440px;
-    @media (max-width: 960px) {
+
+    @media (max-width: 960px) and (min-width: 601px) {
       width: 100vw;
       height: 360px;
+    }
+
+    @media (max-width: 600px) {
+      width: 100vw;
+      height: 360px;
+      object-fit: contain !important;
     }
   }
 `
@@ -282,17 +307,21 @@ const Blog = props => {
     }
   `)
 
-  // console.log(props.pageContext.frontmatter)
-  // let featuredImgFluid = post.frontmatter.featuredImage.childImageSharp.fluid
-
   return (
-    <Layout path={props.location.pathname}>
-      <BG />
+    <NewLayout>
+      {/* <BG /> */}
       <SEO
         title={props.pageContext.frontmatter.title}
-        site={'Uniswap Blog'}
+        site={'Opium Blog'}
         description={props.pageContext.frontmatter.previewText}
-        path={props.location.pathname}
+        path={props.location.pathname}        
+        image={data.allMdx.edges
+          .filter(({ node }) => {
+            return node.fields.slug === props.path
+          })
+          .map(({ node }) => {
+            return node.frontmatter.featuredImage.childImageSharp.fluid
+          })}
       />
 
       <StyledBlog id="blog-header">
@@ -357,7 +386,7 @@ const Blog = props => {
             )
           })}
       </StyledBlog>
-    </Layout>
+    </NewLayout>
   )
 }
 

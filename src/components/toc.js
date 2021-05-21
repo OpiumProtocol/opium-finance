@@ -9,14 +9,13 @@ const StyledHeadingListElement = styled.li`
   margin-left: ${({ depth }) => depth && depth / 2 + 'rem'};
   margin-bottom: 0px;
   margin-top: 0.125rem;
-
   margin-bottom: 0.125rem;
 `
 
 const StyledHeadingLink = styled.a`
   text-decoration: none;
-  color: ${({ theme }) => theme.textColor};
-  white-space: pre;
+  color: ${({ theme }) => theme.colors.white};
+  // white-space: pre;
   text-overflow: ellipsis;
   cursor: pointer;
 
@@ -33,16 +32,17 @@ const StyledTOC = styled.ul`
   position: sticky;
   align-self: flex-start;
   top: 6rem;
-  min-width: 180px;
+  min-width: 15.25rem;
   max-height: 70vh;
   overflow: auto;
   font-size: 0.75rem;
   margin: 0 2rem 0 0;
-  opacity: 0.6;
+  /* opacity: 0.6; */
   transition: opacity 0.3s ease;
   list-style: none;
   text-decoration: none;
   border-left: 1px solid ${({ theme }) => theme.colors.grey2};
+  padding: 0;
 
   :hover {
     opacity: 1;
@@ -72,7 +72,7 @@ const Heading = ({ heading }) => {
           window.history.pushState({}, '', '#' + slug)
         }}
       >
-        {heading.value}
+        <span>{heading.value}</span>
       </StyledHeadingLink>
     </StyledHeadingListElement>
   )

@@ -1,4 +1,4 @@
-const menu = require('./src/utils/menu')
+// const menu = require('./src/utils/menu')
 
 require('dotenv').config({
   path: `.env.${process.env.NODE_ENV}`
@@ -6,28 +6,25 @@ require('dotenv').config({
 
 module.exports = {
   siteMetadata: {
-    title: `Uniswap`,
-    description: `Automated liquidity protocol on Ethereum`,
-    author: `@Uniswap`,
-    menulinks: menu,
-    siteUrl: `https://uniswap.org`,
-    repository: `https://github.com/Uniswap/uniswap-org`,
+    title: `Opium Finance`,
+    description: `Opium.finance is a decentralized finance platform where people create markets. Discover the true financial independence – be your own banker and hedge fund manager with a wide rage of сutting-edge financial tools`,
+    author: `opium.team`,
+    // menulinks: menu,
+    siteUrl: `https://opium.finance`,
+    repository: `https://github.com/OpiumProtocol`,
     commit: process.env.NOW_GITHUB_COMMIT_SHA || `master`
   },
   plugins: [
     {
-      resolve: `gatsby-plugin-s3`,
+      resolve: "gatsby-plugin-google-tagmanager",
       options: {
-        bucketName: process.env.AWS_S3_BUCKET || 'NOT_SPECIFIED',
-        protocol: 'https',
-        hostname: 'uniswap.org',
-        acl: null
+        id: "GTM-WGLF5JM"
       }
     },
     {
       resolve: `gatsby-plugin-canonical-urls`,
       options: {
-        siteUrl: `https://uniswap.org`
+        siteUrl: `https://opium.finance`
       }
     },
     {
@@ -48,15 +45,8 @@ module.exports = {
     {
       resolve: `gatsby-source-filesystem`,
       options: {
-        name: `docs`,
-        path: `${__dirname}/src/pages/docs/`
-      }
-    },
-    {
-      resolve: `gatsby-source-filesystem`,
-      options: {
-        name: `faq`,
-        path: `${__dirname}/src/pages/faq/`
+        name: `academy`,
+        path: `${__dirname}/src/pages/academy/`
       }
     },
     {
@@ -94,9 +84,9 @@ module.exports = {
         extensions: [`.mdx`, `.md`],
         defaultLayouts: {
           default: require.resolve('./src/layouts'),
-          docs: require.resolve(`./src/layouts/docs`),
+          docs: require.resolve(`./src/layouts`),
           blog: require.resolve(`./src/layouts/blogPost`),
-          faq: require.resolve(`./src/layouts/faq`)
+          academy: require.resolve(`./src/layouts/academyPost`),
         },
         remarkPlugins: [require(`remark-math`)],
         rehypePlugins: [require(`rehype-katex`)],
@@ -108,14 +98,13 @@ module.exports = {
           {
             resolve: `gatsby-remark-twitter-cards`,
             options: {
-              title: 'Uniswap', // website title
+              title: 'Opium Finance', // website title
               separator: '|', // default
-              author: '@Uniswap',
+              author: '@opium.team',
               background: require.resolve('./static/images/twitter_card_bg.jpg'), // path to 1200x630px file or hex code, defaults to black (#000000)
               fontColor: '#FF3093', // defaults to white (#ffffff)
               fontStyle: 'sans-serif', // default
               titleFontSize: 124, // default
-              fontFile: require.resolve('./static/fonts/GT-Haptik-Regular.ttf') // will override fontStyle - path to custom TTF font
             }
           },
           `gatsby-remark-smartypants`,
@@ -131,18 +120,18 @@ module.exports = {
     },
     `gatsby-transformer-sharp`,
     `gatsby-plugin-sharp`,
-    {
-      resolve: `gatsby-plugin-manifest`,
-      options: {
-        name: `gatsby-starter-default`,
-        short_name: `starter`,
-        start_url: `/`,
-        background_color: `#663399`,
-        theme_color: `#663399`,
-        display: `minimal-ui`,
-        icon: `src/images/fav.ico` // This path is relative to the root of the site.
-      }
-    },
+    // {
+    //   resolve: `gatsby-plugin-manifest`,
+    //   options: {
+    //     name: `gatsby-starter-default`,
+    //     short_name: `starter`,
+    //     start_url: `/`,
+    //     background_color: `#663399`,
+    //     theme_color: `#663399`,
+    //     display: `minimal-ui`,
+    //     icon: `src/images/favicon.ico` // This path is relative to the root of the site.
+    //   }
+    // },
     {
       resolve: `gatsby-plugin-feed`,
       options: {
@@ -192,21 +181,12 @@ module.exports = {
             }
             `,
             output: '/rss.xml',
-            title: 'Uniswap Blog RSS Feed'
+            title: 'Opium Finance Blog RSS Feed'
           }
         ]
       }
     },
     'gatsby-plugin-eslint',
-    {
-      resolve: `gatsby-plugin-algolia-docsearch-appid`,
-      options: {
-        apiKey: '8962240e69e6d23a88432f501c115470',
-        indexName: 'uniswap_v2_docs',
-        appId: 'VZ0CVS8XCW',
-        inputSelector: 'blank' // use dummy selector to avoid double render
-      }
-    }
     // this (optional) plugin enables Progressive Web App + Offline functionality
     // To learn more, visit: https://gatsby.dev/offline
     // `gatsby-plugin-offline`,

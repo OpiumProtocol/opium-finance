@@ -38,7 +38,8 @@ export const theme = darkMode => ({
   invertImage: darkMode ? 'filter: invert(0);' : 'filter: invert(1);',
 
   // for setting css on <html>
-  backgroundColor: darkMode ? '#0f1013' : '#F7F8FA',
+  backgroundColor: darkMode ? '#0a0a1e' : '#F7F8FA',
+  newBackgroundColor: '#0a0a1e',
 
   modalBackground: darkMode ? 'rgba(0,0,0,0.6)' : 'rgba(0,0,0,0.5)',
   cardBG: darkMode ? 'rgba(0, 0, 0, .5)' : 'rgba(255, 255, 255, .5)',
@@ -129,8 +130,7 @@ export const GlobalStyle = createGlobalStyle`
 
   
   
-    html {
-    font-size: 16px;
+  html {
     font-variant: none;
     background-color: ${({ theme }) => theme.backgroundColor};
     -webkit-font-smoothing: antialiased;
@@ -143,6 +143,23 @@ export const GlobalStyle = createGlobalStyle`
     overflow-y: scroll;
     width: 100%;
     box-sizing: border-box;
+
+
+    @media (max-width: 1439px) {
+      font-size: 16px;
+    }
+    
+    @media (max-width: 1919px) and (min-width: 1440px) {
+      font-size: 20px;
+    }
+
+    @media (max-width: 2399px) and (min-width: 1920px) {
+      font-size: 25px;
+    }
+
+    @media screen and (min-width: 2400px) {
+      font-size: 40px;
+    }
   }
 
   body {
@@ -151,7 +168,7 @@ export const GlobalStyle = createGlobalStyle`
     margin: 0;
     padding: 0;
     width: 100%;
-    font-family: "Inter Roman", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    // font-family: "Inter Roman", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
     font-feature-settings: 'ss01' on, 'ss02' on, 'cv01' on, 'cv03' on;
 
     line-height: 1.55;
@@ -162,9 +179,11 @@ export const GlobalStyle = createGlobalStyle`
     color: ${({ theme }) => theme.textColor};
 
     
+
+    
     @media (min-width: 1441px) {
         overflow-x: visible;
-    }
+    }    
   }
 
   * {
@@ -179,12 +198,12 @@ export const GlobalStyle = createGlobalStyle`
 
   .title{
     letter-spacing: -0.05em;
-    font-family: "GT Haptik Regular";
+    font-family: 'Titillium Web', sans-serif;
     font-size: 72px;
   }
 
   h1 {
-    font-family: "GT Haptik Regular";
+    font-family: 'Titillium Web', sans-serif;
     margin-top: 1.75rem ;
     font-size: 1.875rem;
     font-weight: 500;
@@ -193,11 +212,11 @@ export const GlobalStyle = createGlobalStyle`
   h2 {
     font-size: 1.5rem;
     font-weight: 400;
-    font-family: "GT Haptik Regular";  }
+    font-family: 'Titillium Web', sans-serif;  }
 
   h3 {
     font-weight: 400;
-    font-family: "GT Haptik Regular";  }
+    font-family: 'Titillium Web', sans-serif;  }
 
 
 

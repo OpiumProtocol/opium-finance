@@ -1,6 +1,6 @@
-# uniswap-org
+# opium-finance
 
-Contains the source code for the [uniswap.org](https://uniswap.org) homepage.
+Contains the source code for the [opium.finance](https://opium.finance/) blog. Credits to the forked [uniswap.org](https://uniswap.org) homepage.
 
 ## Development
 
