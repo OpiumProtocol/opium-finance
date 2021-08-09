@@ -14,7 +14,7 @@ const StyledHeadingListElement = styled.li`
 
 const StyledHeadingLink = styled.a`
   text-decoration: none;
-  color: ${({ theme }) => theme.colors.white};
+  color: ${({ theme }) => theme.textColor};
   // white-space: pre;
   text-overflow: ellipsis;
   cursor: pointer;
@@ -31,17 +31,15 @@ const StyledTOC = styled.ul`
   position: -webkit-sticky;
   position: sticky;
   align-self: flex-start;
-  top: 6rem;
-  min-width: 15.25rem;
+  top: 6rem;  
   max-height: 70vh;
   overflow: auto;
-  font-size: 0.75rem;
-  margin: 0 2rem 0 0;
+  font-size: 0.75rem;  
   /* opacity: 0.6; */
   transition: opacity 0.3s ease;
   list-style: none;
   text-decoration: none;
-  border-left: 1px solid ${({ theme }) => theme.colors.grey2};
+  border-left: 1px solid ${({ theme }) => theme.borderColor};
   padding: 0;
 
   :hover {

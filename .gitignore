@@ -13,6 +13,11 @@ node_modules/
 yarn-error.log
 .vercel
 .env
-.env.*
 
 .vscode
+
+# Terraform
+.terraform*
+*.tfstate*
+*.tfplan
+*.tfvars

@@ -28,6 +28,7 @@ function SEO({ description, lang, title, path, props, image }) {
 
   const metaDescription = description || site.siteMetadata.description
   const opiumTitle = 'Opium Finance'
+  const httpSiteUrl = site.siteMetadata.siteUrl.includes('landing-test.opium') ? site.siteMetadata.siteUrl.replace('https', 'http') : site.siteMetadata.siteUrl
 
   return (
     <Helmet
@@ -36,9 +37,10 @@ function SEO({ description, lang, title, path, props, image }) {
       }}
       title={title}
       titleTemplate={`${site.siteMetadata.title} | %s`}
+      prefix="og: http://ogp.me/ns#"
       >
       <meta charSet="utf-8" />
-      <html lang="en" />
+      <html lang="en" prefix="og: http://ogp.me/ns#" />
       <meta name="title" content={title} />
       <meta name="description" content={metaDescription} />
       <meta name="keywords" content={title}></meta>
@@ -46,17 +48,15 @@ function SEO({ description, lang, title, path, props, image }) {
       <meta property="og:title" content={opiumTitle} />
       <meta property="og:description" content={metaDescription} />
       <meta property="og:type" content={'website'} />
-      <meta property="og:url" content={site.siteMetadata.siteUrl + path} />
-      <meta property="og:image" content={image && image.length > 0 ? image[0].src : `${site.siteMetadata.siteUrl}${path ? path : '/images/'}twitter_card_bg.jpg`} />
+      <meta property="og:url" content={httpSiteUrl} />
+      <meta property="og:image" content={image ? `${httpSiteUrl}/images/${image.split('./')[1]}` : `${httpSiteUrl}/images/twitter_card_bg.jpg`} />
 
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:creator" content="@Opium"></meta>
       <meta name="twitter:site" content="@Opium" />
-      <meta property="twitter:image" content={`${site.siteMetadata.siteUrl}${path ? path : '/images/'}twitter_card_bg.jpg`} />
-
+      <meta property="twitter:image" content={image ? `${httpSiteUrl}/images/${image.split('./')[1]}` : `${httpSiteUrl}/images/twitter_card_bg.jpg`} />
       <link rel="icon" href='https://app.opium.finance/favicon.ico' type="image/x-icon"/>
       <link rel="alternate" type="application/rss+xml" href="/rss.xml" />
-
       <link rel="preconnect" href="https://fonts.gstatic.com" />
       <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&family=Titillium+Web:wght@400;600;700&display=swap" rel="stylesheet"></link>
     </Helmet>

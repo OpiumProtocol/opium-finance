@@ -1,4 +1,10 @@
-import { createGlobalStyle, css } from 'styled-components'
+import { createGlobalStyle, css } from 'styled-components';
+import heroDarkBgImg from "../images/home/hero-dark-bg-small.svg";
+import heroLightBgImg from "../images/home/hero-light-bg-small.svg";
+import alamedaDarkImg from "../images/home/alameda-dark.svg";
+import alamedaLightImg from "../images/home/alameda-light.svg";
+import metaDarkImg from "../images/home/darkMeta.svg";
+import metaLightImg from "../images/home/lightMeta.svg";
 
 const MEDIA_WIDTHS = {
   upToSmall: 600,
@@ -21,10 +27,18 @@ const black = '#000000'
 export const theme = darkMode => ({
   white,
   black,
-  textColor: darkMode ? white : '#010101',
+  textColor: darkMode ? white : '#0A0A1E',
+  headerHoverColor: darkMode ? '#383848' : '#EAF5FF',
+  hoverColor: darkMode ? '#141429' : '#EAF5FF',
   invertedTextColor: darkMode ? '#010101' : white,
   greyText: darkMode ? white : '#6C7284',
-  buttonBorder: darkMode ? `#FFFFFF30` : '#01010130',
+  buttonBorder: darkMode ? '#FFFFFF30' : '#01010130',
+  borderColor: darkMode ? white : '#0A0A1E',
+  heroBGImg: darkMode ? heroDarkBgImg : heroLightBgImg,
+  alamedaImg: darkMode ? alamedaDarkImg : alamedaLightImg,
+  metaImg: darkMode ? metaDarkImg : metaLightImg,
+  dumpColor: darkMode ? white : '#8C8C8C',
+  linkColor: '#197CD8',
 
   heroBG: darkMode
     ? 'radial-gradient(76.02% 75.41% at 1.84% 0%, #ff007a 0%, #021d43 100%)'
@@ -38,7 +52,7 @@ export const theme = darkMode => ({
   invertImage: darkMode ? 'filter: invert(0);' : 'filter: invert(1);',
 
   // for setting css on <html>
-  backgroundColor: darkMode ? '#0a0a1e' : '#F7F8FA',
+  backgroundColor: darkMode ? '#0a0a1e' : white,
   newBackgroundColor: '#0a0a1e',
 
   modalBackground: darkMode ? 'rgba(0,0,0,0.6)' : 'rgba(0,0,0,0.5)',
@@ -224,6 +238,7 @@ export const GlobalStyle = createGlobalStyle`
     min-height: 100vh;
     width: 100%;
     position: relative;
+    // overflow: hidden;
   }
   a{
     color: ${({ theme }) => theme.colors.link};

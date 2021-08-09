@@ -46,5 +46,10 @@ locals {
       subdomain = "landing-test."
       cloudflare_subdomain = "landing-test"
     },
+    {
+      name = "production"
+      subdomain = ""
+      cloudflare_subdomain = "@"
+    },
   ]
 }

@@ -1,20 +1,27 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { Link } from 'gatsby'
+import { trackCustomEvent } from 'gatsby-plugin-google-analytics'
 import styled from 'styled-components';
+import { useDarkMode } from '../contexts/Application'
 import logoImg from "../images/home/logo.svg";
 // import arrowWhiteImg from "../images/home/arrow_white.svg";
 // import arrowBlackImg from "../images/home/arrow_black.svg";
 // import menuBlackImg from "../images/home/mobile-menu_black.svg";
-import menuWhiteImg from "../images/home/mobile-menu_white.svg";
+// import menuWhiteImg from "../images/home/mobile-menu_white.svg";
+import sunImg from "../images/home/theme/sun.svg";
+import moonImg from "../images/home/theme/moon.svg";
+import MobileMenuIcon from "../components/icons/menu";
+import { analyticsAction, analyticsCategories } from '../utils/constants';
 
 const links = [
-  { title: 'Academy', link: '/academy', target: '_self'},
+  { title: 'Academy', link: '/academy/', target: '_self'},
   { title: 'Governance', link: 'https://app.opium.finance/governance', target: '_blank'},
-  { title: 'Blog', link: '/blog', target: '_self'},
+  { title: 'Blog', link: '/blog/', target: '_self'},
   { title: 'Protocol', link: 'https://www.opium.network/', target: '_blank'}
 ];
 
 const HeaderSection = styled.div`
-  background-color: #0a0a1e;
+  background-color: ${({ theme }) => theme.backgroundColor};
   z-index: 1;
 
   &.sticky {
@@ -60,14 +67,14 @@ const CenterSection = styled.div`
     font-size: 0.875rem;
     line-height: 21px;
     text-align: right;
-    text-transform: uppercase;
-    color: #FFFFFF;
+    text-transform: uppercase;    
+    color: ${({ theme }) => theme.textColor};
     margin: 0 15px;
     padding: 0.5rem 0.375rem;
     border-radius: 8px;
 
     &:hover {
-      background-color: #383848;
+      background-color: ${({ theme }) => theme.headerHoverColor};      
     }
   }
 `;
@@ -139,7 +146,7 @@ const MobileHeader = styled.div`
     position: fixed;    
     width: 100%;
     padding: 20px;
-    background-color: #0a0a1e;
+    background-color: ${({ theme }) => theme.backgroundColor};
     border-top: 1px solid lightgray;
     z-index: 1;
   }
@@ -150,9 +157,9 @@ const MobileHeader = styled.div`
     font-size: 14px;
     line-height: 21px;
     text-align: right;
-    text-transform: uppercase;
-    color: white;
+    text-transform: uppercase;    
     margin: 10px 0;
+    color: ${({ theme }) => theme.textColor};
   }
 
   button {
@@ -189,7 +196,29 @@ const MobileHeader = styled.div`
       margin: 0;
     }
   }  
-`
+`;
+
+const ThemeController = styled.div`
+  cursor: pointer;
+`;
+
+const MobileThemeController = styled.div`
+  display: flex;  
+  float: right;
+
+  span {
+    font-family: 'Titillium Web', sans-serif;
+    font-size: 16px;
+    line-height: 24px;
+    margin-left: 10px;
+  }
+`;
+
+const StyledSvg = styled.div`
+  svg {
+    fill: ${props => props.theme.textColor};
+  }
+`;
 
 
 const useOnClickOutside = (ref, handler, exceptional) => {
@@ -221,6 +250,7 @@ const Header = () => {
   const [showMobileMenu, setShowMobileMenu] = useState(false);
   const ref = useRef();
   const exceptional = useRef();
+  const [darkMode, toggleDarkMode] = useDarkMode()
 
   useOnClickOutside(ref, () => setShowMobileMenu(false), exceptional);
 
@@ -249,19 +279,35 @@ const Header = () => {
     <HeaderSection className={sticky ? "sticky" : ""}>
       <div className="section-inner desktop-version">
         <LeftSection>
-          <a href="/" className="logo-link">
+          <Link to="/" className="logo-link">
             <img src={logoImg} alt=""/>
-          </a>          
+          </Link>          
         </LeftSection>
         <CenterSection>
           {
             links.map((item, index) => (
-              <a href={item.link} key={index} className="text-link" target={item.target}>{item.title}</a>
+              <Link to={item.link} key={index} className="text-link" target={item.target}>{item.title}</Link>
             ))
           }
         </CenterSection>
         <RightSection>
-          <a href='https://app.opium.finance' target='_blank' rel="noopener noreferrer">TRY NOW</a>
+        <a 
+          href='https://app.opium.finance' 
+          target='_blank' 
+          rel="noopener noreferrer"
+          onClick={e => {
+          trackCustomEvent({
+            category: analyticsCategories.user,
+            action: analyticsAction.onboarding,
+            label: "Try now button"
+          })
+          }}
+        > 
+          TRY NOW
+        </a>
+          <ThemeController type="button" onClick={toggleDarkMode}>            
+            <img src={ darkMode ? sunImg : moonImg} alt="" />
+          </ThemeController>
           {/* <div className="lang-change">
             <span>EN</span>
             <img src={arrowWhiteImg} alt=""/>
@@ -270,28 +316,27 @@ const Header = () => {
       </div>
       <MobileHeader>
         <div className="mobile-nav">
-          <a href="/" className="logo-link">
+          <Link href="/" className="logo-link">
             <img src={logoImg} alt=""/>
-          </a>
-          <img src={menuWhiteImg} alt="" onClick={handleShowMobile} ref={exceptional}/>
+          </Link>
+          <div onClick={handleShowMobile} ref={exceptional}>
+            <StyledSvg><MobileMenuIcon color={({ theme }) => theme.textColor} /></StyledSvg>            
+          </div>
         </div>
         {
           showMobileMenu &&  
             <div className={`mobile-menu ${sticky ? "sticky" : ""}`} ref={ref}>
+              <MobileThemeController type="button" onClick={toggleDarkMode}>            
+                <img src={ darkMode ? sunImg : moonImg} alt="" />
+                <span>{darkMode ? 'Dark' : 'Light'}</span>
+              </MobileThemeController>
               {
                 links.map((item, index) => (
                   <div key={index}>
-                    <a href={item.link} className="text-link">{item.title}</a>
+                    <Link href={item.link} className="text-link">{item.title}</Link>
                   </div>                 
                 ))
               }
-              {/* <div>
-                <button>GO TO APP</button>
-              </div> */}
-              {/* <div className="lang-change">
-                <span>EN</span>
-                <img src={arrowBlackImg} alt=""/>
-              </div> */}
             </div>
         }
       </MobileHeader>      

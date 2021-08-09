@@ -18,6 +18,7 @@ const StyledBlog = styled.div`
   font-family: 'Titillium Web', sans-serif;
 
   h2 {
+    color: ${({ theme }) => theme.textColor};
     font-family: 'Titillium Web', sans-serif;
     margin: 0;
   }
@@ -49,7 +50,7 @@ const PageTitleWrapper = styled.section`
   flex-direction: column;
   max-width: 68rem;
   margin: 0 auto;
-  padding: 0rem 1.25rem;
+  padding: 0rem 1.25rem;  
 `
 
 export const Posts = styled.div`
@@ -58,13 +59,13 @@ export const Posts = styled.div`
   width: 100%;
   text-decoration: none;
   border-radius: 20px;
-  background-color: ${({ theme }) => theme.cardBG};
+  background-color: ${({ theme }) => theme.hoverColor};
   backdrop-filter: blur(2px);
   transition: transform 0.45s cubic-bezier(0.19, 1, 0.22, 1);
   border: 1px solid rgba(0, 0, 0, 0);
 
   :hover {
-    border: 1px solid ${({ theme }) => theme.colors.grey3};
+    border: 1px solid ${({ theme }) => theme.borderColor};
   }
   h1 {
     max-width: 960px;
@@ -75,6 +76,7 @@ export const Posts = styled.div`
   }
   p {
     max-width: 450px;
+    color: ${({ theme }) => theme.textColor};
   }
   p:last-child {
     margin-bottom: 0;
@@ -108,6 +110,7 @@ export const PostTitleWrapper = styled.div`
   flex-direction: column;
   /* margin-top: 24px; */
   padding: 2rem;
+
   h2 {
     font-size: 1.1rem;
     font-weight: bold;
@@ -115,6 +118,7 @@ export const PostTitleWrapper = styled.div`
   p {
     font-size: 0.8rem
   }
+
 
   color: ${({ theme }) => theme.colors.white};
 
@@ -209,7 +213,6 @@ const Blog = props => {
       }
     }
   `)
-
   return (
     <NewLayout>
       {/* <BG /> */}

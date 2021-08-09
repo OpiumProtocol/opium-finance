@@ -20,6 +20,7 @@ const StyledAcademy = styled.div`
   h2 {
     font-family: 'Titillium Web', sans-serif;
     margin: 0;
+    color: ${({ theme }) => theme.textColor};
   }
 
   @media (max-width: 960px) {
@@ -58,13 +59,13 @@ export const Posts = styled.div`
   width: 100%;
   text-decoration: none;
   border-radius: 20px;
-  background-color: ${({ theme }) => theme.cardBG};
+  background-color: ${({ theme }) => theme.hoverColor};
   backdrop-filter: blur(2px);
   transition: transform 0.45s cubic-bezier(0.19, 1, 0.22, 1);
   border: 1px solid rgba(0, 0, 0, 0);
 
   :hover {
-    border: 1px solid ${({ theme }) => theme.colors.grey3};
+    border: 1px solid ${({ theme }) => theme.borderColor};
   }
   h1 {
     max-width: 960px;
@@ -75,6 +76,7 @@ export const Posts = styled.div`
   }
   p {
     max-width: 450px;
+    color: ${({ theme }) => theme.textColor};
   }
   p:last-child {
     margin-bottom: 0;

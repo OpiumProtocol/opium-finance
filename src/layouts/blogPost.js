@@ -14,7 +14,6 @@ import TableofContents from '../components/toc'
 import '../styles/prism-github.css'
 
 const StyledBlog = styled.div`
-  min-width: 68rem;
   max-width: 68rem;
   display: flex;
   flex-direction: column;
@@ -23,14 +22,20 @@ const StyledBlog = styled.div`
   /* padding: 2rem 5rem; */
   margin: 0 auto;
   /* margin-bottom: 2rem; */
+  color: ${({ theme }) => theme.textColor};
 
   strong {
-    color: ${({ theme }) => theme.colors.white};
+    color: ${({ theme }) => theme.textColor};
   }
   
   font-family: 'Titillium Web', sans-serif;
   h1, h2 {
     font-family: 'Titillium Web', sans-serif;
+    color: ${({ theme }) => theme.textColor};
+
+    svg {
+      fill: ${({ theme }) => theme.textColor};
+    }
   }
 
   @media (max-width: 960px) {
@@ -44,7 +49,7 @@ const StyledBlog = styled.div`
 
 const StyledBlogPostWrapper = styled.div`
   display: grid;
-  grid-template-columns: 1fr 180px;
+  grid-template-columns: 1fr 16.875rem;
   justify-content: space-between;
   gap: 48px;
   padding: 0 2rem;
@@ -63,18 +68,20 @@ const StyledBlogPostWrapper = styled.div`
 `
 
 const StyledMDX = styled.div`
-  min-width: 640px;
-  max-width: 640px;
   padding: 0;
   margin-bottom: 3rem;
   a {
-    color: ${({ theme }) => theme.colors.link};
+    color: ${({ theme }) => theme.linkColor};
+
+    strong {
+      color: ${({ theme }) => theme.linkColor};
+    }
   }
 
   figcaption {
     padding: 0.25rem;
     font-style: italic;
-    color: ${({ theme }) => theme.colors.grey6};
+    color: ${({ theme }) => theme.textColor};
     text-align: center;
   }
   @media (max-width: 960px) {
@@ -101,11 +108,26 @@ const StyledMDX = styled.div`
     border-radius: 12px;
     background-color: transparent;
   }
+
+  #media--events + p + p {
+    position: relative;
+    width: 100%;
+    height: 0;
+    padding-bottom: 56.25%;
+  }
+  
+  #media--events + p + p iframe {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+  }
 `
 
 const BlogLink = styled(Link)`
   font-size: 16px;
-  color: ${({ theme }) => theme.colors.white};
+  color: ${({ theme }) => theme.textColor};
 `
 
 const PostHeader = styled.div`
@@ -145,14 +167,14 @@ const PostTitle = styled.h1`
   pointer-events: none;
   white-space: wrap;
   overflow-wrap: normal;
-  max-width: 900px;
+  //max-width: 900px;
 
   @media (max-width: 960px) {
     width: 100%;
     font-size: 4rem;
     line-height: 4.5rem;
     margin: 2rem 0 2rem 0;
-    max-width: 600px;
+    // max-width: 600px;
   }
   @media (max-width: 375px) {
     width: 100%;
@@ -169,28 +191,41 @@ const PostTitle = styled.h1`
 
 const PostDate = styled(Moment)`
   margin: 0;
-  color: ${({ theme }) => theme.colors.white};
+  color: ${({ theme }) => theme.textColor};
 `
 
 const StyledDocsNavWrapper = styled.ul`
-  display: flex;
-  flex-direction: row;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  align-items: center;
   justify-content: space-between;
   list-style: none;
   margin: 0;
   margin-bottom: 2rem;
   padding: 3rem;
-
   border-bottom: 1px solid ${({ theme }) => theme.colors.grey2};
   width: 100%;
-  flex-wrap: wrap;
+  gap: 3rem;
+
+  // & > * {
+  //   height: 100%;
+
+  //   a {
+  //     height: 100%;
+  //   }
+  // }
+
   @media (max-width: 960px) {
     padding: 0;
+  }
+
+  @media (max-width: 600px) {
+    grid-template-columns: repeat(1, 1fr);
   }
 `
 const StyledDocsNav = styled.li`
   a {
-    color: ${({ theme }) => theme.colors.white};
+    color: ${({ theme }) => theme.textColor};
   }
   @media (max-width: 960px) {
     width: 100%;
@@ -199,7 +234,7 @@ const StyledDocsNav = styled.li`
 
 const StyledLink = styled(Link)`
   font-size: 1.25rem;
-  border: 1px solid ${({ theme }) => theme.colors.grey2};
+  border: 1px solid ${({ theme }) => theme.borderColor};  
   border-radius: 0.25rem;
   padding: 0.5rem 1rem;
   text-decoration: none;
@@ -215,32 +250,42 @@ const StyledLink = styled(Link)`
 `
 
 const WrappedHeroImage = styled(Img)`
-  width: 100vw;
+  width: 95vw;
   height: 550px;
   max-width: 1440px;
+  
+  @media (min-width: 2000px) {
+    height: auto;
+    max-width: 4000px;
+  }
+
   @media (max-width: 960px) and (min-width: 601px) {
-    width: 100vw;
+    width: 95vw;
     height: 360px;
   }
 
   @media (max-width: 600px) {
-    width: 100vw;
+    width: 95vw;
     height: 260px;
     object-fit: contain !important;
   }
 
   img {
-    width: 100vw;
+    width: 95vw;
     height: 550px;
     max-width: 1440px;
 
+    @media (min-width: 2000px) {
+      max-width: 4000px;
+    }
+
     @media (max-width: 960px) and (min-width: 601px) {
-      width: 100vw;
+      width: 95vw;
       height: 360px;
     }
 
     @media (max-width: 600px) {
-      width: 100vw;
+      width: 95vw;
       height: 360px;
       object-fit: contain !important;
     }
@@ -252,6 +297,11 @@ const FixImage = styled.span`
     width: 100vw;
     height: 550px;
     max-width: 1440px;
+
+    @media (min-width: 2000px) {
+      max-width: 4000px;
+    }
+
     @media (max-width: 960px) {
       width: 100vw;
       height: 360px;
@@ -270,8 +320,11 @@ const Blog = props => {
               value
               depth
             }
+            excerpt(pruneLength: 250)
             frontmatter {
+              date(formatString: "MMMM Do, YYYY")
               title
+              previewText
               featuredImage {
                 childImageSharp {
                   fluid(maxWidth: 1440) {
@@ -282,8 +335,9 @@ const Blog = props => {
             }
             fields {
               slug
-              topLevelDir
-              subDir
+              readingTime {
+                text
+              }
             }
           }
           next {
@@ -315,13 +369,7 @@ const Blog = props => {
         site={'Opium Blog'}
         description={props.pageContext.frontmatter.previewText}
         path={props.location.pathname}        
-        image={data.allMdx.edges
-          .filter(({ node }) => {
-            return node.fields.slug === props.path
-          })
-          .map(({ node }) => {
-            return node.frontmatter.featuredImage.childImageSharp.fluid
-          })}
+        image={props.pageContext.frontmatter.featuredImage}       
       />
 
       <StyledBlog id="blog-header">
@@ -338,7 +386,7 @@ const Blog = props => {
           })}
 
         <PostHeader>
-          <BlogLink to="/blog">{'Blog'}</BlogLink>
+          <BlogLink to="/blog/">{'Blog'}</BlogLink>
           <PostTitle>{props.pageContext.frontmatter.title}</PostTitle>
           <PostMetaData>
             {/* <PostAuthor>{props.pageContext.frontmatter.author}</PostAuthor> {' — '} */}

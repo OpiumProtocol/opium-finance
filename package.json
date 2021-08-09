@@ -26,6 +26,7 @@
     "gatsby-plugin-algolia": "^0.11.1",
     "gatsby-plugin-algolia-docsearch-appid": "^0.0.4",
     "gatsby-plugin-feed": "^2.5.3",
+    "gatsby-plugin-google-analytics": "^3.9.0",
     "gatsby-plugin-google-tagmanager": "^3.4.0",
     "gatsby-plugin-instagram-embed": "^1.1.0",
     "gatsby-plugin-layout": "^1.3.2",
@@ -38,6 +39,7 @@
     "gatsby-plugin-postcss": "^3.6.0",
     "gatsby-plugin-react-helmet": "^3.3.6",
     "gatsby-plugin-react-svg": "^3.0.0",
+    "gatsby-plugin-robots-txt": "^1.6.2",
     "gatsby-plugin-sharp": "^2.6.9",
     "gatsby-plugin-sitemap": "^2.4.3",
     "gatsby-plugin-slug-field": "^0.1.0",
@@ -104,11 +106,13 @@
     "dev": "gatsby develop",
     "devlocal": "gatsby develop -H 0.0.0.0",
     "start": "gatsby develop",
-    "build": "gatsby build",
+    "build-test": "BASE_METADATA_URL='http://landing-test.opium.finance' gatsby build",
+    "build-prod": "BASE_METADATA_URL='https://opium.finance' gatsby build",
     "serve": "gatsby serve",
     "clean": "gatsby clean",
     "format": "prettier --write \"src/**/*.{js,jsx,md,mdx}\"",
-    "deploy-test": "gsutil cp -z html,css,js,json,txt,xml,svg -r ./public/* gs://landing-test.opium.finance/"
+    "deploy-test": "gsutil cp -z html,css,js,json,txt,xml,svg -r ./public/* gs://landing-test.opium.finance/",
+    "deploy-prod": "gsutil cp -z html,css,js,json,txt,xml,svg -r ./public/* gs://opium.finance/"
   },
   "repository": {
     "type": "git",

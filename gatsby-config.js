@@ -1,20 +1,28 @@
 // const menu = require('./src/utils/menu')
 
-require('dotenv').config({
-  path: `.env.${process.env.NODE_ENV}`
-})
+require('dotenv').config()
+
+const baseMetadataUrl = process.env.BASE_METADATA_URL || 'https://opium.finance'
 
 module.exports = {
   siteMetadata: {
     title: `Opium Finance`,
-    description: `Opium.finance is a decentralized finance platform where people create markets. Discover the true financial independence – be your own banker and hedge fund manager with a wide rage of сutting-edge financial tools`,
+    description: `Opium.finance is a decentralized finance platform where people create markets. Discover the true financial independence – be your own banker and hedge fund manager with a wide range of сutting-edge financial tools`,
     author: `opium.team`,
     // menulinks: menu,
-    siteUrl: `https://opium.finance`,
+    siteUrl: baseMetadataUrl,
     repository: `https://github.com/OpiumProtocol`,
     commit: process.env.NOW_GITHUB_COMMIT_SHA || `master`
   },
   plugins: [
+    {
+      resolve: 'gatsby-plugin-robots-txt',
+      options: {
+        host: baseMetadataUrl,
+        sitemap: `${baseMetadataUrl}/sitemap.xml`,
+        policy: [{ userAgent: '*', disallow: '/index.html' }]
+      }
+    },
     {
       resolve: "gatsby-plugin-google-tagmanager",
       options: {
@@ -24,14 +32,7 @@ module.exports = {
     {
       resolve: `gatsby-plugin-canonical-urls`,
       options: {
-        siteUrl: `https://opium.finance`
-      }
-    },
-    {
-      resolve: 'gatsby-plugin-replace-path',
-      options: {
-        pattern: /\d+-/g,
-        replacement: ''
+        siteUrl: `${baseMetadataUrl}/`
       }
     },
     `re-slug`,
@@ -187,6 +188,12 @@ module.exports = {
       }
     },
     'gatsby-plugin-eslint',
+    {
+      resolve: `gatsby-plugin-google-analytics`,
+      options: {
+        trackingId: "UA-138660028-1",
+      },
+    },
     // this (optional) plugin enables Progressive Web App + Offline functionality
     // To learn more, visit: https://gatsby.dev/offline
     // `gatsby-plugin-offline`,

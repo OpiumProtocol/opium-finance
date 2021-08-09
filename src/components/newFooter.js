@@ -1,15 +1,16 @@
 import React from 'react';
+import { Link } from 'gatsby';
 import styled from 'styled-components';
-import twitterImg from "../images/home/footer/twitter.svg";
-import telegramImg from "../images/home/footer/telegram.svg";
-import chatImg from "../images/home/footer/subtract.svg";
-import shapeImg from "../images/home/footer/m_shape.svg";
+import Twitter from "../components/sociallink/twitter";
+import Telegram from "../components/sociallink/telegram";
+import Subtract from "../components/sociallink/subtract";
+import MShape from "../components/sociallink/mshape";
 
 const socialLinks = [
-  { icon: twitterImg, link: 'https://twitter.com/Opium_Network' },
-  { icon: telegramImg, link: 'https://t.me/opium_network' },
-  { icon: chatImg, link: 'https://discord.gg/9cYkPEm' },
-  { icon: shapeImg, link: 'https://medium.com/opium-network' },
+  { icon: <Twitter />, link: 'https://twitter.com/Opium_Network' },
+  { icon: <Telegram />, link: 'https://t.me/opium_network' },
+  { icon: <Subtract />, link: 'https://discord.gg/9cYkPEm' },
+  { icon: <MShape />, link: 'https://medium.com/opium-network' },
 ];
 
 const textLinks = [
@@ -20,7 +21,7 @@ const textLinks = [
 
 
 const FooterSection = styled.div`
-  background-color: #0a0a1e;
+  background-color: ${({ theme }) => theme.backgroundColor};
   padding: 30px 20px;
 
   .section-inner {
@@ -69,7 +70,7 @@ const RightLinksGroup = styled.div`
     font-weight: 400;
     font-size: 0.75rem;
     line-height: 1.25rem;
-    color: white;
+    color: ${({ theme }) => theme.textColor};
   }
 
   a {
@@ -77,7 +78,13 @@ const RightLinksGroup = styled.div`
     font-weight: 400;
     font-size: 0.75rem;
     line-height: 1.25rem;
-    color: white;
+    color: ${({ theme }) => theme.textColor};
+  }
+`;
+
+const StyledSvg = styled.div`
+  svg {
+    fill: ${props => props.theme.textColor};
   }
 `;
 
@@ -89,9 +96,11 @@ const Footer = () => {
           {
             socialLinks.map((item, index) => (
               <div key={index}>
-                <a href={item.link}>
-                  <img src={item.icon} alt=""/>
-                </a>
+                <Link to={item.link} target='_blank' rel="noopener noreferrer">
+                  <StyledSvg>
+                    {item.icon}
+                  </StyledSvg>
+                </Link>
               </div>
             ))
           }
@@ -100,9 +109,9 @@ const Footer = () => {
           {
             textLinks.map((item, index) => (
               <div key={index}>
-                <a href={item.link} target='_blank' rel="noopener noreferrer">
+                <Link to={item.link} target='_blank' rel="noopener noreferrer">
                   {item.label}
-                </a>
+                </Link>
               </div>
             ))
           }

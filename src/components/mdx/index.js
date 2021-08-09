@@ -9,7 +9,6 @@ import Code from './code'
 import InlineCode from './inlineCode'
 import InlineCard from '../inlineCard'
 import InlineBoxLink from '../inlineBoxLink'
-import Simulator from '../Simulator'
 
 import '../../styles/katex.css'
 
@@ -20,7 +19,6 @@ const components = {
   Title,
   InlineCard,
   InlineBoxLink,
-  Simulator,
   code: Code,
   inlineCode: InlineCode
 }
